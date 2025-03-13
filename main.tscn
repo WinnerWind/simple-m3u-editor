@@ -373,7 +373,6 @@ size_flags_horizontal = 3
 text = "No, let me rethink this."
 
 [node name="Action Panel File" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -567,6 +566,7 @@ layout_mode = 2
 text = "I'm done reading."
 
 [node name="Tutorial Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
