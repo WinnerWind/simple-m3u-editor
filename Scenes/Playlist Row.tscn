@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bomiaqjdamln"]
+
+[node name="PlaylistRow" type="HBoxContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SONG NAME"
+text_overrun_behavior = 3
+
+[node name="Open" type="Button" parent="."]
+layout_mode = 2
+text = "O"

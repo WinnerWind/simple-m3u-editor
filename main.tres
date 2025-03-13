@@ -1,0 +1,131 @@
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://cqnbu1bdnwobn"]
+
+[ext_resource type="FontFile" uid="uid://b8ea6xvmsapic" path="res://Fonts/Pico Fonts/rainyedited.ttf" id="1_vmmo2"]
+[ext_resource type="FontFile" uid="uid://dd7lx7m7pm5ri" path="res://Fonts/Pico Fonts/picotron.ttf" id="2_0ru1r"]
+[ext_resource type="FontFile" uid="uid://bw6rfa74nssnd" path="res://Fonts/Pico Fonts/Deus EX Console.ttf" id="3_0ru1r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i7ek"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v11j8"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1uk1"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.6, 0.6, 1)
+
+[sub_resource type="Gradient" id="Gradient_ci82a"]
+offsets = PackedFloat32Array(0, 0.566456, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.231373, 0.231373, 0.576471, 0, 1, 1, 0.239216)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_24q3n"]
+gradient = SubResource("Gradient_ci82a")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vmmo2"]
+texture = SubResource("GradientTexture2D_24q3n")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vmmo2"]
+color = Color(0, 1, 1, 0.411765)
+
+[sub_resource type="ImageTexture" id="ImageTexture_0ru1r"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_t1uk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxqhr"]
+bg_color = Color(0, 0.6, 0.6, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csr5i"]
+bg_color = Color(0, 0.819608, 0.811765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcxlh"]
+content_margin_top = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ru1r"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t1uk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oblph"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci82a"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_0ru1r"]
+color = Color(0, 1, 1, 0.411765)
+vertical = true
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 1
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_vmmo2")
+Button/styles/focus = SubResource("StyleBoxFlat_5i7ek")
+Button/styles/hover = SubResource("StyleBoxFlat_v11j8")
+Button/styles/normal = SubResource("StyleBoxFlat_t1uk1")
+ForegroundPanel/base_type = &"Panel"
+ForegroundPanel/styles/panel = SubResource("StyleBoxTexture_vmmo2")
+HBoxContainer/constants/separation = 15
+HSeparator/styles/separator = SubResource("StyleBoxLine_vmmo2")
+HSlider/icons/grabber = SubResource("ImageTexture_0ru1r")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_t1uk1")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_uxqhr")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_csr5i")
+HSlider/styles/slider = SubResource("StyleBoxFlat_tcxlh")
+HSplitContainer/constants/separation = 15
+HoverPanel/base_type = &"Panel"
+HoverPanel/styles/panel = SubResource("StyleBoxFlat_0ru1r")
+Label/fonts/font = ExtResource("2_0ru1r")
+LineEdit/fonts/font = ExtResource("3_0ru1r")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_t1uk1")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_oblph")
+MarginContainer/constants/margin_bottom = 5
+MarginContainer/constants/margin_left = 15
+MarginContainer/constants/margin_right = 15
+MarginContainer/constants/margin_top = 5
+Panel/styles/panel = SubResource("StyleBoxFlat_ci82a")
+PlaytimeLabel/base_type = &"Label"
+PlaytimeLabel/constants/outline_size = 5
+RichTextLabel/constants/line_separation = 4
+RichTextLabel/fonts/normal_font = ExtResource("2_0ru1r")
+VSeparator/styles/separator = SubResource("StyleBoxLine_0ru1r")

@@ -1,0 +1,694 @@
+[gd_scene load_steps=7 format=3 uid="uid://ch0n5hrw53vnj"]
+
+[ext_resource type="Theme" uid="uid://cqnbu1bdnwobn" path="res://main.tres" id="1_7mycd"]
+[ext_resource type="Script" uid="uid://8eoat0gi7wkb" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bsvkt4gx32pke" path="res://Scenes/Song Row.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bomiaqjdamln" path="res://Scenes/Playlist Row.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bxqk4gql8yco6" path="res://Scenes/Single Song In Playlist Row.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://cw0j61031yw7y" path="res://ActionButton.gd" id="5_lquwl"]
+
+[node name="Main" type="Panel" node_paths=PackedStringArray("file_dialog", "save_dialog", "audio_player", "music_list_sorter", "playlist_list_sorter", "current_playlist_list_sorter", "current_playlist_directory_label", "previous_file_contents", "new_file_contents", "rename_panel", "confirm_save_panel", "actionmenu_save_playlist", "actionmenu_saveas_button", "actionmenu_rename_button", "actionmenu_reset_playlist_button", "actionmenu_reload_button", "player_parent", "play_pause_button", "stop_button", "playing_song_name_label", "duration_slider", "duration_label", "previous_button", "next_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7mycd")
+script = ExtResource("1_ig7tw")
+file_dialog = NodePath("FolderDialog")
+save_dialog = NodePath("SaveDialog")
+audio_player = NodePath("AudioStreamPlayer")
+music_list_sorter = NodePath("Main/Sorter/MarginContainer/Main Content/Right/Music List/MarginContainer/VBoxContainer/List Scroll/Music List Sorter")
+playlist_list_sorter = NodePath("Main/Sorter/MarginContainer/Main Content/Playlists/MarginContainer/VBoxContainer/List Scroll/Playlists Sorter")
+current_playlist_list_sorter = NodePath("Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer/List Scroll/Current Playlist List Sorter")
+current_playlist_directory_label = NodePath("Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer/Playlist Path")
+previous_file_contents = NodePath("Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/Previous/Old File Contents")
+new_file_contents = NodePath("Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/New/New File Contents")
+rename_panel = NodePath("Rename Panel")
+confirm_save_panel = NodePath("Commit Changes")
+actionmenu_save_playlist = NodePath("Action Panel File/MarginContainer/Sorter/Save")
+actionmenu_saveas_button = NodePath("Action Panel File/MarginContainer/Sorter/Save As")
+actionmenu_rename_button = NodePath("Action Panel File/MarginContainer/Sorter/Rename")
+actionmenu_reset_playlist_button = NodePath("Action Panel Edit/MarginContainer/Sorter/Reset Button")
+actionmenu_reload_button = NodePath("Action Panel Edit/MarginContainer/Sorter/Reload from file")
+player_parent = NodePath("Main/Sorter/Player")
+play_pause_button = NodePath("Main/Sorter/Player/HBoxContainer/Play Pause")
+stop_button = NodePath("Main/Sorter/Player/HBoxContainer/Stop")
+playing_song_name_label = NodePath("Main/Sorter/Player/HBoxContainer/File Name")
+duration_slider = NodePath("Main/Sorter/Player/HBoxContainer/Duration Slider")
+duration_label = NodePath("Main/Sorter/Player/HBoxContainer/Duration Slider/Label")
+previous_button = NodePath("Main/Sorter/Player/HBoxContainer/Previous")
+next_button = NodePath("Main/Sorter/Player/HBoxContainer/Next")
+song_row = ExtResource("2_0xm2m")
+playlist_row = ExtResource("3_h2yge")
+playlist_song_row = ExtResource("4_1bvp3")
+allowed_song_extensions = Array[String](["mp3", "flac"])
+allowed_playlist_extensions = Array[String](["m3u", "m3u8"])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="FolderDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
+access = 2
+filters = PackedStringArray("*.m3u", "*.m3u8")
+use_native_dialog = true
+
+[node name="Main" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Main/Sorter"]
+layout_mode = 2
+text = "Godot M3U Editor"
+horizontal_alignment = 1
+
+[node name="ActionMenu" type="HBoxContainer" parent="Main/Sorter"]
+z_index = 1
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="File" type="Button" parent="Main/Sorter/ActionMenu" node_paths=PackedStringArray("panel")]
+layout_mode = 2
+mouse_filter = 1
+text = "File"
+flat = true
+script = ExtResource("5_lquwl")
+panel = NodePath("../../../../Action Panel File")
+
+[node name="Edit" type="Button" parent="Main/Sorter/ActionMenu" node_paths=PackedStringArray("panel")]
+layout_mode = 2
+mouse_filter = 1
+text = "Edit"
+flat = true
+script = ExtResource("5_lquwl")
+panel = NodePath("../../../../Action Panel File")
+
+[node name="VSeparator" type="VSeparator" parent="Main/Sorter/ActionMenu"]
+layout_mode = 2
+
+[node name="About" type="Button" parent="Main/Sorter/ActionMenu" node_paths=PackedStringArray("panel")]
+layout_mode = 2
+mouse_filter = 1
+text = "About"
+flat = true
+script = ExtResource("5_lquwl")
+panel = NodePath("../../../../About Panel")
+
+[node name="Changelog" type="Button" parent="Main/Sorter/ActionMenu" node_paths=PackedStringArray("panel")]
+layout_mode = 2
+mouse_filter = 1
+text = "Changes"
+flat = true
+script = ExtResource("5_lquwl")
+panel = NodePath("../../../../Changelog Panel")
+
+[node name="Tutorial" type="Button" parent="Main/Sorter/ActionMenu" node_paths=PackedStringArray("panel")]
+layout_mode = 2
+mouse_filter = 1
+text = "Tutorial"
+flat = true
+script = ExtResource("5_lquwl")
+panel = NodePath("../../../../Changelog Panel")
+
+[node name="HSeparator" type="HSeparator" parent="Main/Sorter"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Main Content" type="HBoxContainer" parent="Main/Sorter/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Playlists" type="Panel" parent="Main/Sorter/MarginContainer/Main Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ForegroundPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Sorter/MarginContainer/Main Content/Playlists"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Playlists/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Sorter/MarginContainer/Main Content/Playlists/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Playlists"
+horizontal_alignment = 1
+
+[node name="List Scroll" type="ScrollContainer" parent="Main/Sorter/MarginContainer/Main Content/Playlists/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Playlists Sorter" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Playlists/MarginContainer/VBoxContainer/List Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Right" type="HSplitContainer" parent="Main/Sorter/MarginContainer/Main Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.5
+
+[node name="Music List" type="Panel" parent="Main/Sorter/MarginContainer/Main Content/Right"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ForegroundPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Music List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Music List/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Main/Sorter/MarginContainer/Main Content/Right/Music List/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Songs"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="List Scroll" type="ScrollContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Music List/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Music List Sorter" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Music List/MarginContainer/VBoxContainer/List Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Current Playlist" type="Panel" parent="Main/Sorter/MarginContainer/Main Content/Right"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ForegroundPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Current Playlist"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Playlist Path" type="Label" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "???"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="List Scroll" type="ScrollContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Current Playlist List Sorter" type="VBoxContainer" parent="Main/Sorter/MarginContainer/Main Content/Right/Current Playlist/MarginContainer/VBoxContainer/List Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Player" type="MarginContainer" parent="Main/Sorter"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Sorter/Player"]
+layout_mode = 2
+
+[node name="Play Pause" type="Button" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+text = "P"
+
+[node name="Stop" type="Button" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+text = "S"
+
+[node name="File Name" type="Label" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "INSIDE OF A CALLING.mp3"
+text_overrun_behavior = 3
+
+[node name="Duration Slider" type="HSlider" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+value = 70.0
+
+[node name="Label" type="Label" parent="Main/Sorter/Player/HBoxContainer/Duration Slider"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PlaytimeLabel"
+text = "00:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Previous" type="Button" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+text = "<-"
+
+[node name="Next" type="Button" parent="Main/Sorter/Player/HBoxContainer"]
+layout_mode = 2
+text = "->"
+
+[node name="Commit Changes" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -250.0
+offset_right = 450.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Commit Changes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Commit Changes/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Commit Changes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Commit these changes?"
+horizontal_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Commit Changes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Previous" type="VBoxContainer" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/Previous"]
+layout_mode = 2
+text = "Previous File"
+horizontal_alignment = 1
+
+[node name="Old File Contents" type="RichTextLabel" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/Previous"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="New" type="VBoxContainer" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/New"]
+layout_mode = 2
+text = "New File"
+horizontal_alignment = 1
+
+[node name="New File Contents" type="RichTextLabel" parent="Commit Changes/MarginContainer/VBoxContainer/HSplitContainer/New"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Confirmation" type="HBoxContainer" parent="Commit Changes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Confirm Save" type="Button" parent="Commit Changes/MarginContainer/VBoxContainer/Confirmation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes, please overwrite my file."
+
+[node name="Cancel Save" type="Button" parent="Commit Changes/MarginContainer/VBoxContainer/Confirmation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No, let me rethink this."
+
+[node name="Action Panel File" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -118.5
+offset_right = 150.0
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Action Panel File"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Action Panel File/MarginContainer"]
+layout_mode = 2
+
+[node name="Open Folder" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Select Folder"
+
+[node name="VisualSeperator" type="HSeparator" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+disabled = true
+text = "Save Playlist"
+
+[node name="Save As" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+disabled = true
+text = "Save Playlist As"
+
+[node name="Rename" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+disabled = true
+text = "Rename Current File"
+
+[node name="Seperator" type="Control" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VisualSeperator2" type="HSeparator" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Quit M3U Editor"
+
+[node name="Close Panel" type="Button" parent="Action Panel File/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Close this panel"
+
+[node name="Action Panel Edit" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -118.5
+offset_right = 150.0
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Action Panel Edit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Action Panel Edit/MarginContainer"]
+layout_mode = 2
+
+[node name="Reset Button" type="Button" parent="Action Panel Edit/MarginContainer/Sorter"]
+layout_mode = 2
+disabled = true
+text = "Reset current playlist"
+
+[node name="Reload from file" type="Button" parent="Action Panel Edit/MarginContainer/Sorter"]
+layout_mode = 2
+disabled = true
+text = "Re-load current playlist."
+
+[node name="Seperator" type="Control" parent="Action Panel Edit/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Close Panel" type="Button" parent="Action Panel Edit/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Close this panel"
+
+[node name="About Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -118.5
+offset_right = 150.0
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="About Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="About Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="About Panel/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "GodM3U v0.1.0
+
+A simple, no bullshit relative M3U editor.
+
+Made by WinnerWind, with love. And bugs.
+[url=https://winnerwind.github.io]Click here to go to my website.[/url]"
+horizontal_alignment = 1
+
+[node name="Close Panel" type="Button" parent="About Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "I'm done reading."
+
+[node name="Changelog Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -118.5
+offset_right = 150.0
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Changelog Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Changelog Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="Changelog Panel/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "v0.1.0
+- Release. Full of bugs. (woo!)"
+
+[node name="Close Panel" type="Button" parent="Changelog Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "I'm done reading."
+
+[node name="Tutorial Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -200.0
+offset_right = 375.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Tutorial Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Tutorial Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="Tutorial Panel/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center] A simple no bullshit M3U Editor.[/center]
+[center] How to use [/center]
+
+- Open a folder of music from the FILE menu
+- You should see your discovered playlists (found on the left) if any, the songs in the middle. 
+- Click the open button on the playlist you want to open.
+- Add or trash songs from the Songs and Current Playlist section.
+- Save.
+
+- You can pick a different file name to save using the Save As button from the file menu."
+
+[node name="Close Panel" type="Button" parent="Tutorial Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "I'm done reading."
+
+[node name="Rename Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -118.5
+offset_right = 150.0
+offset_bottom = 118.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"HoverPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Rename Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sorter" type="VBoxContainer" parent="Rename Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Rename Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "Rename the open playlist to:"
+
+[node name="Name Entry" type="LineEdit" parent="Rename Panel/MarginContainer/Sorter"]
+layout_mode = 2
+placeholder_text = "Enter new name here. No m3u."
+
+[node name="Disclaimer" type="RichTextLabel" parent="Rename Panel/MarginContainer/Sorter"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[color=red]WARNING![/color]
+This operation has no undo. Please proceed at your own risk. This may lead to corruption.
+
+Press Enter to submit."
+
+[node name="Close Panel" type="Button" parent="Rename Panel/MarginContainer/Sorter"]
+layout_mode = 2
+text = "I changed my mind."
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_finished"]
+[connection signal="dir_selected" from="FolderDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="file_selected" from="SaveDialog" to="." method="_on_save_dialog_file_selected"]
+[connection signal="pressed" from="Main/Sorter/Player/HBoxContainer/Play Pause" to="." method="playpause_audio"]
+[connection signal="pressed" from="Main/Sorter/Player/HBoxContainer/Stop" to="." method="stop_music"]
+[connection signal="drag_ended" from="Main/Sorter/Player/HBoxContainer/Duration Slider" to="." method="drag_ended"]
+[connection signal="drag_started" from="Main/Sorter/Player/HBoxContainer/Duration Slider" to="." method="drag_started"]
+[connection signal="value_changed" from="Main/Sorter/Player/HBoxContainer/Duration Slider" to="." method="player_slider_set_value"]
+[connection signal="pressed" from="Main/Sorter/Player/HBoxContainer/Previous" to="." method="unskip_song"]
+[connection signal="pressed" from="Main/Sorter/Player/HBoxContainer/Next" to="." method="skip_song"]
+[connection signal="pressed" from="Commit Changes/MarginContainer/VBoxContainer/Confirmation/Confirm Save" to="." method="_on_save_confirmed"]
+[connection signal="pressed" from="Commit Changes/MarginContainer/VBoxContainer/Confirmation/Cancel Save" to="Commit Changes" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Open Folder" to="FolderDialog" method="show"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Open Folder" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Save" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Save As" to="SaveDialog" method="show"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Save As" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Rename" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Rename" to="Rename Panel" method="show"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Quit" to="." method="_quit"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Quit" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel File/MarginContainer/Sorter/Close Panel" to="Action Panel File" method="hide"]
+[connection signal="pressed" from="Action Panel Edit/MarginContainer/Sorter/Reset Button" to="." method="reset_current_playlist"]
+[connection signal="pressed" from="Action Panel Edit/MarginContainer/Sorter/Reload from file" to="." method="reload_current_playlist"]
+[connection signal="pressed" from="Action Panel Edit/MarginContainer/Sorter/Close Panel" to="Action Panel Edit" method="hide"]
+[connection signal="pressed" from="About Panel/MarginContainer/Sorter/Close Panel" to="About Panel" method="hide"]
+[connection signal="pressed" from="Changelog Panel/MarginContainer/Sorter/Close Panel" to="Changelog Panel" method="hide"]
+[connection signal="pressed" from="Tutorial Panel/MarginContainer/Sorter/Close Panel" to="Tutorial Panel" method="hide"]
+[connection signal="text_submitted" from="Rename Panel/MarginContainer/Sorter/Name Entry" to="." method="_rename_submitted"]
+[connection signal="pressed" from="Rename Panel/MarginContainer/Sorter/Close Panel" to="Rename Panel" method="hide"]
